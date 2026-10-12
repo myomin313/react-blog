@@ -1,9 +1,10 @@
-
 pipeline {
     agent any
 
     options {
         disableConcurrentBuilds()
+        skipDefaultCheckout(true)
+        timeout(time: 15, unit: 'MINUTES')
     }
 
     environment {
@@ -21,7 +22,9 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                sh 'node --version'
+                sh 'npm --version'
+                sh 'npm ci --no-audit --no-fund'
             }
         }
 
